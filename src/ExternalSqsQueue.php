@@ -21,7 +21,7 @@ class ExternalSqsQueue extends SqsQueue implements QueueContract
         $response = $this->sqs->receiveMessage(
             array('QueueUrl' => $queue, 'AttributeNames' => array('ApproximateReceiveCount'))
         );
-        if (count($response['Messages']) > 0)
+        if ($response['Messages'] !== null && count($response['Messages']) > 0)
         {
             return new ExternalSqsJob($this->container, $this->sqs, $response['Messages'][0], 'externalsqs', $queue);
         }
