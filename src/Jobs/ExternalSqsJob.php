@@ -18,6 +18,7 @@ class ExternalSqsJob extends SqsJob implements JobContract
 
         $handler = $this->resolveHandler();
         $data = $this->getJobData();
+        $this->delete();
         $handler->handle($this, $data);
     }
 
